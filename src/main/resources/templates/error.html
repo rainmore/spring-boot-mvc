@@ -1,18 +1,30 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <title>Good Thymes Virtual Grocery</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all" href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
-</head>
-
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout"
+        >
 <body>
-
-<p th:text="@{hello}">Welcome to our grocery store!</p>
-
+<div class="container">
+    <section layout:fragment="content">
+        <div class="hero-unit pagination-centered">
+Error
+            <dl>
+                <dt>Status</dt>
+                <dd th:text="(${status} ?: 500)">Error Status</dd>
+                <dt>Error</dt>
+                <dd th:text="(${error} ?: 'Internal Error')">Error</dd>
+                <dt th:unless="${#strings.isEmpty(message)}">Message</dt>
+                <dd th:unless="${#strings.isEmpty(message)}" th:text="${message}">Error Message</dd>
+                <dt th:unless="${#strings.isEmpty(exception)}">Exception</dt>
+                <dd th:unless="${#strings.isEmpty(exception)}" th:text="${exception}">Error Exception</dd>
+                <dt th:unless="${#strings.isEmpty(trace)}">Trace</dt>
+                <dd th:unless="${#strings.isEmpty(trace)}" th:text="${trace}">Error Trace</dd>
+                <dt th:unless="${#strings.isEmpty(url)}">Trace</dt>
+                <dd th:unless="${#strings.isEmpty(url)}" th:text="${url}">Error Url</dd>
+            </dl>
+        </div>
+    </section>
+</div>
 </body>
-
 </html>
