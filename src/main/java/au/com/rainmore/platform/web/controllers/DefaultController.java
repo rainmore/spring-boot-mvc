@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Controller
 public class DefaultController {
     private final Logger LOG = LoggerFactory.getLogger(DefaultController.class);
@@ -32,10 +36,15 @@ public class DefaultController {
     }
 
     @RequestMapping(value = "/form")
-    public String formView(final Person person, final BindingResult bindingResult) {
+    public String formView(final Person person, final BindingResult bindingResult) throws Exception {
         person.setFirstName("Felix");
         person.setLastName("Rong");
         person.setMiddleName("Jie");
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfBirth = dateFormat.parse("2000-01-01");
+
+        person.setDateOfBirth(dateOfBirth);
         LOG.info(String.format("get, person: %s", person.toString()));
         return "form";
     }
@@ -44,6 +53,10 @@ public class DefaultController {
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     public String formProcess(final Person person, final BindingResult bindingResult) {
         LOG.info(String.format("post, person: %s", person.toString()));
+        if (person.getDateOfBirth() != null)
+            LOG.info(String.format("post, person: %s", person.getDateOfBirth().toString()));
         return "form";
     }
+
+
 }

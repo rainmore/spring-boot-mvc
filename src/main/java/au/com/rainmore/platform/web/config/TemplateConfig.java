@@ -1,5 +1,6 @@
 package au.com.rainmore.platform.web.config;
 
+import au.com.rainmore.platform.web.config.conversion.DateFormatter;
 import net.sourceforge.html5val.Html5ValDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.format.Formatter;
+import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.extras.conditionalcomments.dialect.ConditionalCommentsDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -24,6 +27,8 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 import javax.servlet.Servlet;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 @ConditionalOnClass(SpringTemplateEngine.class)
@@ -153,6 +158,25 @@ public class TemplateConfig {
     @Bean
     public Html5ValDialect html5ValDialect() {
         return new Html5ValDialect();
+    }
+
+    @Configuration
+    protected static class ThymeleafViewFormattingConversionConfiguration {
+
+        @Bean
+        @ConditionalOnClass(ThymeleafViewResolver.class)
+        public FormattingConversionServiceFactoryBean conversionService() {
+            FormattingConversionServiceFactoryBean cs = new FormattingConversionServiceFactoryBean();
+            Set<Formatter> formatters = new HashSet<Formatter>();
+            formatters.add(dateFormatter());
+            cs.setFormatters(formatters);
+            return cs;
+        }
+
+        @Bean
+        public DateFormatter dateFormatter() {
+            return new DateFormatter();
+        }
     }
 
 }

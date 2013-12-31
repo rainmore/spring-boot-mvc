@@ -1,9 +1,12 @@
 package au.com.rainmore.platform.web.models;
 
+import java.util.Date;
+
 public class Person {
     private String firstName;
     private String lastName;
     private String middleName;
+    private Date dateOfBirth;
 
     public String getFirstName() {
         return firstName;
@@ -27,6 +30,14 @@ public class Person {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String toString() {
