@@ -20,8 +20,8 @@ Error
                 <dd th:unless="${#strings.isEmpty(exception)}" th:text="${exception}">Error Exception</dd>
                 <dt th:unless="${#strings.isEmpty(trace)}">Trace</dt>
                 <dd th:unless="${#strings.isEmpty(trace)}" th:text="${trace}">Error Trace</dd>
-                <dt th:unless="${#strings.isEmpty(url)}">Trace</dt>
-                <dd th:unless="${#strings.isEmpty(url)}" th:text="${url}">Error Url</dd>
+                <dt th:unless="${url.length() == 0}">Url</dt>
+                <dd th:unless="${url.length() == 0}" th:text="${url}">Error Url</dd>
             </dl>
         </div>
     </section>
