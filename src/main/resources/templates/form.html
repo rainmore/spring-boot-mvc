@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout"
+        >
+<body>
+<div class="container">
+    <section layout:fragment="content">
+        <div class="hero-unit pagination-centered">
+            <form action="#" th:action="@{/form}" th:object="${person}" method="post">
+                <table>
+                    <tr>
+                        <th>First name:</th>
+                        <td><input type="text" th:field="*{firstName}" /></td>
+                    </tr>
+                    <tr>
+                        <th>Last name:</th>
+                        <td><input type="text" th:field="*{lastName}" /></td>
+                    </tr>
+                    <tr>
+                        <th>Middle name:</th>
+                        <td><input type="text" th:field="*{middleName}" /></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><input type="submit" value="Submit"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </section>
+</div>
+</body>
+</html>
