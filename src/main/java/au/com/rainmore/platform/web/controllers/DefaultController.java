@@ -1,22 +1,29 @@
 package au.com.rainmore.platform.web.controllers;
 
 import au.com.rainmore.platform.web.models.Person;
+import au.com.rainmore.platform.web.services.PersonService;
+import au.com.rainmore.platform.web.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
-public class DefaultController {
+public class DefaultController extends GenericController {
     private final Logger LOG = LoggerFactory.getLogger(DefaultController.class);
+
+    @Autowired
+    private PersonService personService;
 
     @RequestMapping("/hello")
     public String hello(ModelMap modelMap, @RequestParam("name") String name) throws Exception {
@@ -31,31 +38,24 @@ public class DefaultController {
 
     @RequestMapping("/")
     public String home(ModelMap modelMap) {
-        modelMap.addAttribute("hello", "hello------");
-        return "hello";
+        modelMap.addAttribute("dataList", personService.findAll());
+        return "list";
     }
 
     @RequestMapping(value = "/form")
-    public String formView(final Person person, final BindingResult bindingResult) throws Exception {
-        person.setFirstName("Felix");
-        person.setLastName("Rong");
-        person.setMiddleName("Jie");
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth = dateFormat.parse("2000-01-01");
-
-        person.setDateOfBirth(dateOfBirth);
+    public String formView(@RequestParam("id")Long id, ModelMap modelMap) throws Exception {
+        Person person = personService.findOne(id);
+        modelMap.addAttribute("person", person);
         LOG.info(String.format("get, person: %s", person.toString()));
         return "form";
     }
 
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String formProcess(final Person person, final BindingResult bindingResult) {
+    public ModelAndView formProcess(final Person person, final BindingResult bindingResult) {
         LOG.info(String.format("post, person: %s", person.toString()));
-        if (person.getDateOfBirth() != null)
-            LOG.info(String.format("post, person: %s", person.getDateOfBirth().toString()));
-        return "form";
+        personService.save(person);
+        return redirect("form?id=" + person.getId());
     }
 
 

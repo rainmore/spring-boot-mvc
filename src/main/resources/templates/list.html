@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout"
+        >
+<body>
+<div class="container">
+    <section layout:fragment="content">
+        <div class="hero-unit pagination-centered">
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>fistname</th>
+                    <th>lastname</th>
+                    <th>middlename</th>
+                    <th>date of birth</th>
+                    <th></th>
+                </tr>
+                <tr th:unless="${#lists.isEmpty(dataList)}" th:each="person: ${dataList}">
+                    <td th:text="${person.id}">1</td>
+                    <td th:text="${person.firstName}">first name</td>
+                    <td th:text="${person.lastName}">last name</td>
+                    <td th:text="${person.middleName}">middle name</td>
+                    <td th:text="${person.dateOfBirth.toString()}">date of birth</td>
+                    <td>
+                        <a href="form.html" th:href="@{/form/(id = ${person.id})}">Edit</a>
+                        <a href="delete.html">Delete</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(dataList)}">
+                    <td colspan="5">No data available</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+</div>
+</body>
+</html>

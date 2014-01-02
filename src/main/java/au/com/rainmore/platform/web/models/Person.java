@@ -1,11 +1,22 @@
 package au.com.rainmore.platform.web.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 
-public class Person {
+@Entity
+@Table(name = "person")
+public class Person extends GenericModel {
+    @Column
     private String firstName;
+    @Column
     private String lastName;
+    @Column(nullable = true)
     private String middleName;
+    @Column
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date dateOfBirth;
 
     public String getFirstName() {
@@ -41,6 +52,10 @@ public class Person {
     }
 
     public String toString() {
-        return String.format("[%s, %s, %s]", firstName, lastName, middleName);
+        String date = null;
+        if (dateOfBirth != null) {
+            date = dateOfBirth.toString();
+        }
+        return String.format("[%s, %s, %s, %s]", firstName, lastName, middleName, date);
     }
 }

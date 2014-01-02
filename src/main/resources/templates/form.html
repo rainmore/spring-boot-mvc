@@ -9,6 +9,7 @@
     <section layout:fragment="content">
         <div class="hero-unit pagination-centered">
             <form action="#" th:action="@{/form}" th:object="${person}" method="post">
+                <input type="hidden" th:field="*{id}" />
                 <table>
                     <tr>
                         <th>First name:</th>
