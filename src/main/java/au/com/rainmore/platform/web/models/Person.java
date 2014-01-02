@@ -3,20 +3,29 @@ package au.com.rainmore.platform.web.models;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 @Table(name = "person")
 public class Person extends GenericModel {
-    @Column
+    @Column(nullable = false)
+    @Size(min=2, max=50)
+    @NotNull
     private String firstName;
-    @Column
+    @Column(nullable = false)
+    @Size(min=2, max=50)
+    @NotNull
     private String lastName;
     @Column(nullable = true)
     private String middleName;
-    @Column
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+    @NotNull
+    @Past
     private Date dateOfBirth;
 
     public String getFirstName() {

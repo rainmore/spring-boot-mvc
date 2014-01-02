@@ -2,7 +2,6 @@ package au.com.rainmore.platform.web.controllers;
 
 import au.com.rainmore.platform.web.models.Person;
 import au.com.rainmore.platform.web.services.PersonService;
-import au.com.rainmore.platform.web.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javax.validation.Valid;
 
 @Controller
 public class DefaultController extends GenericController {
@@ -43,17 +39,23 @@ public class DefaultController extends GenericController {
     }
 
     @RequestMapping(value = "/form")
-    public String formView(@RequestParam("id")Long id, ModelMap modelMap) throws Exception {
-        Person person = personService.findOne(id);
+    public String formView(@RequestParam(value = "id", required = false, defaultValue = "")Long id, ModelMap modelMap) throws Exception {
+        Person person = new Person();
+        if (id != null && id > 0) {
+            person = personService.findOne(id);
+        }
+
         modelMap.addAttribute("person", person);
         LOG.info(String.format("get, person: %s", person.toString()));
         return "form";
     }
 
-
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public ModelAndView formProcess(final Person person, final BindingResult bindingResult) {
+    public String formProcess(@Valid final Person person, final BindingResult bindingResult) {
         LOG.info(String.format("post, person: %s", person.toString()));
+        if (bindingResult.hasErrors()) {
+            return "form";
+        }
         personService.save(person);
         return redirect("form?id=" + person.getId());
     }
