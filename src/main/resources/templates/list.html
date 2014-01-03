@@ -18,7 +18,7 @@
                     <th>date of birth</th>
                     <th></th>
                 </tr>
-                <tr th:unless="${#lists.isEmpty(dataList)}" th:each="person: ${dataList}">
+                <tr th:unless="${#lists.isEmpty(page.items)}" th:each="person: ${page.content}">
                     <td th:text="${person.id}">1</td>
                     <td th:text="${person.firstName}">first name</td>
                     <td th:text="${person.lastName}">last name</td>
@@ -29,10 +29,11 @@
                         <a href="delete.html">Delete</a>
                     </td>
                 </tr>
-                <tr th:if="${#lists.isEmpty(dataList)}">
+                <tr th:if="${#lists.isEmpty(page.items)}">
                     <td colspan="5">No data available</td>
                 </tr>
             </table>
+            <div th:substituteby="common/paginationbar :: paginationbar"></div>
         </div>
     </section>
 </div>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        >
+<body>
+<div th:fragment="paginationbar" th:unless="${#lists.isEmpty(page.content)}">
+    <div class="pagination pagination-centered">
+        <ul>
+            <li th:unless="${page.firstPage}">
+                <span th:if="${page.firstPage}">&larr; First</span>
+                <a th:if="${not page.firstPage}" th:href="@{${page.url}(page=0,size=${page.size})}">&larr; First</a>
+            </li>
+            <li th:if="${page.hasPreviousPage}">
+                <span th:if="${not page.hasPreviousPage}">&laquo;</span>
+                <a th:if="${page.hasPreviousPage}" th:href="@{${page.url}(page=${page.number - 1},size=${page.size})}" title="Go to previous page">&laquo;</a>
+            </li>
+            <li th:each="item : ${page.items}" th:class="${item.current}? 'active' : ''">
+                <span th:if="${item.current}" th:text="${item.number + 1}">1</span>
+                <a th:if="${not item.current}" th:href="@{${page.url}(page=${item.number},size=${page.size})}"><span th:text="${item.number + 1}">1</span></a>
+            </li>
+            <li th:if="${page.hasNextPage}">
+                <span th:if="${not page.hasNextPage}">&raquo;</span>
+                <a th:if="${page.hasNextPage}" th:href="@{${page.url}(page=${page.number + 1},size=${page.size})}" title="Go to next page">&raquo;</a>
+            </li>
+            <li th:unless="${page.lastPage}">
+                <span th:if="${page.lastPage}">Last &rarr;</span>
+                <a th:if="${not page.lastPage}" th:href="@{${page.url}(page=${page.totalPages - 1},size=${page.size})}">Last &rarr;</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

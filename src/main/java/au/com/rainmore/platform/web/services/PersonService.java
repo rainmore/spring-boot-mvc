@@ -3,6 +3,8 @@ package au.com.rainmore.platform.web.services;
 import au.com.rainmore.platform.web.dao.PersonRepository;
 import au.com.rainmore.platform.web.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ public class PersonService extends GenericService<Person, Long> {
         return repository.findAll();
     }
 
+    public Page<Person> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
     public Person save(Person model) {
         return repository.save(model);
     }
@@ -25,4 +31,5 @@ public class PersonService extends GenericService<Person, Long> {
     public Person findOne(Long id) {
         return repository.findOne(id);
     }
+
 }
