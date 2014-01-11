@@ -1,7 +1,7 @@
-package net.rainmore.platform.web.services;
+package net.rainmore.platform.web.persistent.services;
 
-import net.rainmore.platform.web.dao.PersonRepository;
-import net.rainmore.platform.web.models.Person;
+import net.rainmore.platform.web.persistent.repositories.PersonRepository;
+import net.rainmore.platform.web.persistent.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

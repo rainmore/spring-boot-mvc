@@ -1,4 +1,4 @@
-package net.rainmore.platform.web.services;
+package net.rainmore.platform.web.persistent.services;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
