@@ -10,5 +10,5 @@ error.whitelabel.enabled=false
 # test setting
 test.db.driver=com.mysql.jdbc.Driver
 test.db.url=jdbc:mysql:\/\/localhost\/test
-test.db.username=jrong
-test.db.password=12345
+test.db.username=
+test.db.password=
