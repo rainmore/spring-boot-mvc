@@ -5,6 +5,7 @@ import net.rainmore.platform.web.persistent.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,22 +14,10 @@ import java.util.List;
 public class PersonService extends GenericService<Person, Long> {
 
     @Autowired
-    protected PersonRepository repository;
+    private PersonRepository repository;
 
-    public List<Person> findAll() {
-        return repository.findAll();
+    @Override
+    protected JpaRepository<Person, Long> getRepository() {
+        return repository;
     }
-
-    public Page<Person> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
-    }
-
-    public Person save(Person model) {
-        return repository.save(model);
-    }
-
-    public Person findOne(Long id) {
-        return repository.findOne(id);
-    }
-
 }

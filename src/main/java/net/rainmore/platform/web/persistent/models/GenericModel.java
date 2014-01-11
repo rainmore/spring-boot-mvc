@@ -1,15 +1,23 @@
 package net.rainmore.platform.web.persistent.models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 
 @MappedSuperclass
-public class GenericModel {
+public abstract class GenericModel implements Model, Activable, Archivable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "BIGINT UNSIGNED")
     protected Long id;
+
+    @Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT TRUE")
+    @Type(type="org.hibernate.type.NumericBooleanType")
+    protected Boolean active = true;
+
+    @Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT FALSE")
+    @Type(type="org.hibernate.type.NumericBooleanType")
+    protected Boolean archived = false;
 
     public Long getId() {
         return id;
@@ -17,5 +25,31 @@ public class GenericModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Boolean getArchived() {
+        return archived;
+    }
+
+    public void setArchived(Boolean archived) {
+        this.archived = archived;
+    }
+
+    @Override
+    public Boolean isActive() {
+        return active;
+    }
+
+    @Override
+    public Boolean isArchived() {
+        return archived;
     }
 }

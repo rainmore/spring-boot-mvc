@@ -1,5 +1,10 @@
 package net.rainmore.platform.web.persistent.models;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,23 +15,26 @@ import java.util.Date;
 
 @Entity
 @Table(name = "person")
-public class Person extends GenericModel {
+public class Person extends SignedModel {
+
     @Column(nullable = false)
     @Size(min=2, max=50)
     @NotNull
     private String firstName;
+
     @Column(nullable = false)
     @Size(min=2, max=50)
     @NotNull
     private String lastName;
+
     @Column(nullable = true)
     private String middleName;
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
-    @NotNull
+
+    @Column(columnDefinition = "DATE DEFAULT NULL")
+//    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     @Past
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     public String getFirstName() {
         return firstName;
@@ -52,11 +60,11 @@ public class Person extends GenericModel {
         this.middleName = middleName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
