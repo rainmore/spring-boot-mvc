@@ -1,8 +1,8 @@
 package net.rainmore.platform.web.controllers;
 
-import net.rainmore.platform.web.GenericTest;
+import net.rainmore.platform.GenericTest;
 import net.rainmore.platform.web.config.AppConfig;
-import net.rainmore.platform.web.utils.TestApplicationContext;
+import net.rainmore.platform.TestApplicationContext;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

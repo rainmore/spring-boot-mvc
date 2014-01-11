@@ -1,6 +1,8 @@
 package net.rainmore.platform.web.config;
 
 import net.rainmore.platform.web.config.conversion.DateFormatter;
+import net.rainmore.platform.web.config.conversion.LocalDateFormatter;
+import net.rainmore.platform.web.config.conversion.LocalDateTimeFormatter;
 import net.sourceforge.html5val.Html5ValDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +91,6 @@ public class TemplateConfig {
     @ConditionalOnMissingBean(SpringTemplateEngine.class)
     protected static class ThymeleafDefaultConfiguration {
 
-        @Autowired
         private Collection<ITemplateResolver> templateResolvers = Collections.emptySet();
 
         @Autowired(required = false)
@@ -169,6 +170,8 @@ public class TemplateConfig {
             FormattingConversionServiceFactoryBean cs = new FormattingConversionServiceFactoryBean();
             Set<Formatter> formatters = new HashSet<Formatter>();
             formatters.add(dateFormatter());
+            formatters.add(localDateFormatter());
+            formatters.add(localDateTimeFormatter());
             cs.setFormatters(formatters);
             return cs;
         }
@@ -176,6 +179,16 @@ public class TemplateConfig {
         @Bean
         public DateFormatter dateFormatter() {
             return new DateFormatter();
+        }
+
+        @Bean
+        public LocalDateFormatter localDateFormatter() {
+            return new LocalDateFormatter();
+        }
+
+        @Bean
+        public LocalDateTimeFormatter localDateTimeFormatter() {
+            return new LocalDateTimeFormatter();
         }
     }
 
