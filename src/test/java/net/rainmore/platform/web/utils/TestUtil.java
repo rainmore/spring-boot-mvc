@@ -19,12 +19,4 @@ public class TestUtil {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return mapper.writeValueAsBytes(object);
     }
-
-    public static String randomString(int len) {
-        return RandomStringUtils.randomAlphanumeric(len);
-    }
-
-    public static String randomString() {
-        return RandomStringUtils.randomAlphanumeric(DEFAULT_RANDOM_LENGTH);
-    }
 }
