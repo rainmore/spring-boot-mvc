@@ -41,7 +41,7 @@ jar {
     version =  '0.1.0'
 }
 
-mainClassName = "au.com.rainmore.platform.web.Application"
+mainClassName = "net.rainmore.platform.web.Application"
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
