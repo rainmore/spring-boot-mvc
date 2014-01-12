@@ -1,7 +1,7 @@
 package net.rainmore.platform.web.controllers;
 
 import net.rainmore.platform.GenericTest;
-import net.rainmore.platform.web.config.AppConfig;
+import net.rainmore.platform.web.config.WebConfig;
 import net.rainmore.platform.TestApplicationContext;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestApplicationContext.class, AppConfig.class})
+@ContextConfiguration(classes = {TestApplicationContext.class, WebConfig.class})
 @WebAppConfiguration
 @ComponentScan(basePackages = {"net.rainmore.platform.web"})
 public abstract class GenericControllerTest extends GenericTest {
