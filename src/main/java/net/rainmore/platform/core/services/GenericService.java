@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class GenericService<Model, ID extends Serializable> {
+public abstract class GenericService<Model extends net.rainmore.platform.core.models.Model, ID extends Serializable> {
 
     protected abstract JpaRepository<Model, ID> getRepository();
 
@@ -50,6 +50,14 @@ public abstract class GenericService<Model, ID extends Serializable> {
 
     public void saveAndFlush(Model model) {
         getRepository().saveAndFlush(model);
+    }
+
+    public List<Model> save(Iterable<Model> entities) {
+        return getRepository().save(entities);
+    }
+
+    public List<Model> findAll(Iterable<ID> ids) {
+        return getRepository().findAll(ids);
     }
 
 }

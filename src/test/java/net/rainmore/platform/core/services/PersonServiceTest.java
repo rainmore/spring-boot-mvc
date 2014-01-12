@@ -12,6 +12,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -127,5 +130,33 @@ public class PersonServiceTest extends GenericServiceTest {
         Assert.assertFalse(personService.exists(id1));
         Assert.assertFalse(personService.exists(id2));
 
+    }
+
+    @Test
+    public void testActive() {
+        int inactiveNumber = 0;
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (i % 2 == 0) {
+                list.get(i).setActive(false);
+                inactiveNumber ++;
+            }
+        }
+
+        personService.save(list);
+        Pageable pageable = new PageRequest(0, 199);
+
+        Page<Person> l0 = personService.findAll(false, pageable);
+        Page<Person> l1 = personService.findAllActive(pageable);
+        Page<Person> l2 = personService.findAllArchived(pageable);
+        Page<Person> l3 = personService.findAllAvailable(pageable);
+
+        logger.info(String.format("%d", l0.getNumberOfElements()));
+        logger.info(String.format("%d", l1.getNumberOfElements()));
+        logger.info(String.format("%d", l2.getNumberOfElements()));
+        logger.info(String.format("%d", l3.getNumberOfElements()));
+
+        Assert.assertTrue(l0.getNumberOfElements() == inactiveNumber);
+        Assert.assertTrue(l2.getNumberOfElements() == 0);
     }
 }

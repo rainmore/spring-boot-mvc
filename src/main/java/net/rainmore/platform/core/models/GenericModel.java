@@ -31,6 +31,7 @@ public abstract class GenericModel implements Model, Activable, Archivable {
         return active;
     }
 
+    @Override
     public void setActive(Boolean active) {
         this.active = active;
     }
@@ -39,6 +40,7 @@ public abstract class GenericModel implements Model, Activable, Archivable {
         return archived;
     }
 
+    @Override
     public void setArchived(Boolean archived) {
         this.archived = archived;
     }
