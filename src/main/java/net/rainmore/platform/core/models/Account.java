@@ -25,7 +25,7 @@ public class Account extends SignedModel {
     @Size(min = 6, max = 100)
     private String email;
 
-    @Column(unique = true)
+    @Column
     @Size(min = 6, max = 100)
     private String nickName;
 
