@@ -35,9 +35,9 @@ import java.util.Set;
 @Configuration
 @ConditionalOnClass(SpringTemplateEngine.class)
 public class TemplateConfig {
-//
-//    @Autowired
-//    private SpringTemplateEngine templateEngine;
+
+    @Autowired
+    private SpringTemplateEngine templateEngine;
 
     public static final String DEFAULT_PREFIX = "classpath:/templates/";
     public static final String DEFAULT_SUFFIX = ".html";
@@ -91,6 +91,7 @@ public class TemplateConfig {
     @ConditionalOnMissingBean(SpringTemplateEngine.class)
     protected static class ThymeleafDefaultConfiguration {
 
+        @Autowired
         private Collection<ITemplateResolver> templateResolvers = Collections.emptySet();
 
         @Autowired(required = false)
