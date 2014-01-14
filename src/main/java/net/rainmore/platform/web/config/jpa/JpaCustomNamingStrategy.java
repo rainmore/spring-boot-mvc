@@ -1,4 +1,4 @@
-package au.com.rainmore.platform.web.config.jpa;
+package net.rainmore.platform.web.config.jpa;
 
 import org.hibernate.cfg.ImprovedNamingStrategy;
 

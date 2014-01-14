@@ -1,4 +1,4 @@
-package au.com.rainmore.platform.web.utils;
+package net.rainmore.platform.web.utils;
 
 import org.joda.time.DateTime;
 

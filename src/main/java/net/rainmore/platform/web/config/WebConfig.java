@@ -1,4 +1,4 @@
-package au.com.rainmore.platform.web.config;
+package net.rainmore.platform.web.config;
 
 import java.util.List;
 import org.springframework.context.annotation.Configuration;

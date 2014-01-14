@@ -1,6 +1,4 @@
-package au.com.rainmore.platform.web.controllers;
-
-import org.springframework.web.servlet.ModelAndView;
+package net.rainmore.platform.web.controllers;
 
 public abstract class GenericController {
     private static final String REDIRECT_TEMPLATE = "redirect:%s";

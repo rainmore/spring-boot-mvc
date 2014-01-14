@@ -1,4 +1,4 @@
-package au.com.rainmore.platform.web;
+package net.rainmore.platform;
 
 
 import org.springframework.boot.SpringApplication;
