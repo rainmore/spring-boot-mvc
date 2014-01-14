@@ -1,4 +1,4 @@
-package net.rainmore.platform.web.config;
+package net.rainmore.platform.config;
 
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;

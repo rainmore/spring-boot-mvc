@@ -1,4 +1,4 @@
-package net.rainmore.platform.web.config.jpa;
+package net.rainmore.platform.config.jpa;
 
 import org.springframework.data.domain.Page;
 

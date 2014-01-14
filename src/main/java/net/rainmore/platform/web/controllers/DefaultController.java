@@ -1,6 +1,6 @@
 package net.rainmore.platform.web.controllers;
 
-import net.rainmore.platform.web.config.jpa.PageWrapper;
+import net.rainmore.platform.config.jpa.PageWrapper;
 import net.rainmore.platform.core.models.Person;
 import net.rainmore.platform.core.services.PersonService;
 import org.slf4j.Logger;

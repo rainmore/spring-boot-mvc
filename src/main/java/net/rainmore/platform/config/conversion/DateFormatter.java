@@ -1,4 +1,4 @@
-package net.rainmore.platform.web.config.conversion;
+package net.rainmore.platform.config.conversion;
 
 import org.springframework.format.Formatter;
 

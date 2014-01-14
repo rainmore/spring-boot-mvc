@@ -1,6 +1,6 @@
-package net.rainmore.platform.web.config;
+package net.rainmore.platform.config;
 
-import net.rainmore.platform.web.config.conversion.DateFormatter;
+import net.rainmore.platform.config.conversion.DateFormatter;
 import net.sourceforge.html5val.Html5ValDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
