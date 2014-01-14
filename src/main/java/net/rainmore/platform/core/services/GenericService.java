@@ -1,13 +1,11 @@
-package au.com.rainmore.platform.web.services;
+package net.rainmore.platform.core.services;
 
 import java.util.List;
 
-import au.com.rainmore.platform.web.dao.GenericRepository;
-import au.com.rainmore.platform.web.models.GenericModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.rainmore.platform.core.repository.GenericRepository;
+import net.rainmore.platform.core.models.GenericModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 

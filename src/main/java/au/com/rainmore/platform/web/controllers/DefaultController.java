@@ -1,12 +1,11 @@
 package au.com.rainmore.platform.web.controllers;
 
 import au.com.rainmore.platform.web.config.jpa.PageWrapper;
-import au.com.rainmore.platform.web.models.Person;
-import au.com.rainmore.platform.web.services.PersonService;
+import net.rainmore.platform.core.models.Person;
+import net.rainmore.platform.core.services.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

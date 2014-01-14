@@ -1,4 +1,4 @@
-package au.com.rainmore.platform.web.models;
+package net.rainmore.platform.core.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -1,6 +1,6 @@
-package au.com.rainmore.platform.web.dao;
+package net.rainmore.platform.core.repository;
 
-import au.com.rainmore.platform.web.models.GenericModel;
+import net.rainmore.platform.core.models.GenericModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
