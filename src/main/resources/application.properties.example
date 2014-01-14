@@ -1,0 +1,25 @@
+
+spring.main.show-banner=false
+spring.main.log-startup-info=false
+
+#spring.profiles.active=production
+
+spring.datasource.driverClassName=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://{db-host}/{db-name}
+spring.datasource.username=root
+spring.datasource.password=
+
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+spring.jpa.hibernate.naming-strategy=au.com.rainmore.platform.web.config.jpa.JpaCustomNamingStrategy
+# don't put it to "validate" as hibernate complain the mapping between mysql bool (tinyint) and Boolean
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+spring.jpa.generate-ddl=false
+
+error.whitelabel.enabled=false
+
+# server setting
+#server.port=8080
+#server.address=localhost
+#server.sessionTimeout=30
+#server.contextPath=
