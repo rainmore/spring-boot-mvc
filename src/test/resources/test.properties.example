@@ -1,0 +1,14 @@
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+spring.jpa.hibernate.naming-strategy=net.rainmore.platform.core.helpers.jpa.JpaCustomNamingStrategy
+# don't put it to "validate" as hibernate complain the mapping between mysql bool (tinyint) and Boolean
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.show-sql=true
+spring.jpa.generate-ddl=false
+
+error.whitelabel.enabled=false
+
+# test setting
+test.db.driver=com.mysql.jdbc.Driver
+test.db.url=jdbc:mysql:\/\/{db-host}\/{db-name}
+test.db.username=root
+test.db.password=
