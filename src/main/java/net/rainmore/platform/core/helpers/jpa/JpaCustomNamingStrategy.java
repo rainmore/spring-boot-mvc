@@ -1,4 +1,4 @@
-package net.rainmore.platform.web.config.jpa;
+package net.rainmore.platform.core.helpers.jpa;
 
 import org.hibernate.cfg.ImprovedNamingStrategy;
 

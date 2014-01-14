@@ -10,7 +10,7 @@ spring.datasource.username=root
 spring.datasource.password=
 
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
-spring.jpa.hibernate.naming-strategy=net.rainmore.platform.web.config.jpa.JpaCustomNamingStrategy
+spring.jpa.hibernate.naming-strategy=net.rainmore.platform.core.helpers.jpa.JpaCustomNamingStrategy
 # don't put it to "validate" as hibernate complain the mapping between mysql bool (tinyint) and Boolean
 spring.jpa.hibernate.ddl-auto=none
 spring.jpa.show-sql=true
