@@ -1,5 +1,6 @@
 package au.com.rainmore.platform.web.services;
 
+import au.com.rainmore.platform.web.dao.GenericRepository;
 import au.com.rainmore.platform.web.dao.PersonRepository;
 import au.com.rainmore.platform.web.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ public class PersonService extends GenericService<Person, Long> {
 
     @Autowired
     protected PersonRepository repository;
+
+    @Override
+    protected GenericRepository<Person, Long> getRepository() {
+        return repository;
+    }
 
     public List<Person> findAll() {
         return repository.findAll();
