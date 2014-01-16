@@ -5,6 +5,10 @@ spring.jpa.hibernate.ddl-auto=create-drop
 spring.jpa.show-sql=true
 spring.jpa.generate-ddl=false
 
+
+#options: dev, qa, production, cloud
+spring.profiles.active=dev
+
 error.whitelabel.enabled=false
 
 # test setting

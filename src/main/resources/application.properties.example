@@ -2,6 +2,7 @@
 spring.main.show-banner=false
 spring.main.log-startup-info=false
 
+#options: dev, qa, production, cloud
 #spring.profiles.active=production
 
 spring.datasource.driverClassName=com.mysql.jdbc.Driver
