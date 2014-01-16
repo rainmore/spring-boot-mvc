@@ -29,6 +29,20 @@ public abstract class GenericService<T extends GenericModel, ID extends Serializ
         return getRepository().findOne(id);
     }
 
+    /**
+     * The method will force to run the query,
+     * while findOne() may not trigger a query but only hit the cache
+     *
+     * @param id
+     * @return
+     */
+    public T findById(ID id) {
+        List<T> list = getRepository().findById(id);
+        if (list.isEmpty())
+            return null;
+        return list.get(0);
+    }
+
     public void delete(T model) {
         getRepository().delete(model);
     }
