@@ -1,7 +1,7 @@
 package net.rainmore.platform.web.controllers;
 
 import net.rainmore.platform.GenericTest;
-import net.rainmore.platform.config.TestCoreConfiguration;
+import net.rainmore.platform.config.JPAConfiguration;
 import net.rainmore.platform.config.WebConfig;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -16,7 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.transaction.Transactional;
 
-@ContextConfiguration(classes = {TestCoreConfiguration.class, WebConfig.class})
+@ContextConfiguration(classes = {JPAConfiguration.class, WebConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @TransactionConfiguration(defaultRollback = true)
 @Transactional
