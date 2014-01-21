@@ -2,7 +2,6 @@ package net.rainmore.platform.core.services;
 
 import net.rainmore.platform.GenericTest;
 import net.rainmore.platform.config.JPAConfiguration;
-import net.rainmore.platform.config.TestCoreConfiguration;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
