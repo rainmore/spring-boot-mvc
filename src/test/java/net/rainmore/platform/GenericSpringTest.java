@@ -20,5 +20,5 @@ import javax.transaction.Transactional;
 @ActiveProfiles(profiles = "dev")
 @ContextConfiguration(classes = {JPAConfiguration.class, WebConfig.class, TemplateConfig.class})
 @WebAppConfiguration
-public abstract class GenericDbTest extends GenericTest {
+public abstract class GenericSpringTest extends GenericTest {
 }

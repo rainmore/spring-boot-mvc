@@ -1,8 +1,8 @@
 package net.rainmore.platform.core.services;
 
-import net.rainmore.platform.GenericDbTest;
+import net.rainmore.platform.GenericSpringTest;
 
 
-public abstract class GenericServiceTest extends GenericDbTest {
+public abstract class GenericServiceTest extends GenericSpringTest {
 }
 
