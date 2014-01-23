@@ -4,17 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class DefaultControllerTest extends GenericControllerTest {
-
-    @MockitoAnnotations.Mock
-    org.springframework.web.servlet.View mockView;
-
 
     @InjectMocks
     DefaultController controller;
@@ -22,7 +18,7 @@ public class DefaultControllerTest extends GenericControllerTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = standaloneSetup(controller).setSingleView(mockView).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test

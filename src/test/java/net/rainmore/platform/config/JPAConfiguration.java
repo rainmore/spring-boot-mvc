@@ -1,15 +1,12 @@
 package net.rainmore.platform.config;
 
 import com.jolbox.bonecp.BoneCPDataSource;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -26,7 +23,7 @@ import java.sql.SQLException;
 @Configuration
 @EnableJpaRepositories(basePackages = "net.rainmore.platform.core.repository")
 @PropertySource("classpath:test.properties")
-@ComponentScan(basePackages = {"net.rainmore.platform.core"})
+@ComponentScan(basePackages = {"net.rainmore.platform"})
 @EnableTransactionManagement
 public class JPAConfiguration {
     @Resource
