@@ -1,11 +1,10 @@
 buildscript {
     repositories {
-        maven {url "http://repo.spring.io/milestone"}
         maven {url "http://repo.spring.io/libs-snapshot"}
         mavenLocal()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M7")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.0.RC1")
     }
 }
 
@@ -22,18 +21,18 @@ version = '1.0'
 repositories {
     mavenCentral()
     maven { url "http://repo.spring.io/libs-snapshot" }
-    maven { url "http://repo.springsource.org/milestone" }
 }
 
+//sourceSets.main.java.srcDirs += ['lib', 'elements', 'src', 'main', 'java'].join(File.separator)
 
 ext {
-    springBootVersion = '0.5.0.BUILD-SNAPSHOT'
+    springBootVersion = '1.0.0.RC1'
     springVersion     = '4.0.0.RELEASE'
     hibernateVersion  = '4.3.0.Final'
     mysqlJdbcVersion  = '5.1.27'
     jodaTimeVersion   = '2.3'
     scalaVersion      = '2.10.3'
-    jacksonVersion    = '2.3.0'
+    jacksonVersion    = '2.3.1'
 }
 
 
@@ -46,9 +45,10 @@ mainClassName = "net.rainmore.platform.Application"
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    compile("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+//    compile("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
     compile("org.springframework.boot:spring-boot-autoconfigure:$springBootVersion")
+//    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
 //    compile("org.springframework.hateoas:spring-hateoas:0.8.0.RELEASE")
 
     compile("org.thymeleaf:thymeleaf:2.1.2.RELEASE")
@@ -90,4 +90,20 @@ dependencies {
     testCompile("org.dbunit:dbunit:2.4.9")
     testCompile("com.jolbox:bonecp:0.8.0.RELEASE")
 
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.10'
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
+}
+
+test {
+    useJUnit {
+//        exclude 'com/worldmanager/platform/nextgen/**'
+    }
 }
