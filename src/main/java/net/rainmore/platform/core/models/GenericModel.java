@@ -3,7 +3,7 @@ package net.rainmore.platform.core.models;
 import javax.persistence.*;
 
 @MappedSuperclass
-public class GenericModel {
+public class GenericModel implements Model {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
