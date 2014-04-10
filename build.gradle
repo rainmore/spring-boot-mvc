@@ -26,6 +26,8 @@ repositories {
 //sourceSets.main.java.srcDirs += ['lib', 'elements', 'src', 'main', 'java'].join(File.separator)
 
 ext {
+    typesafeConfigVersion       = '1.2.0'
+
     springBootVersion           = '1.0.1.RELEASE'
     springVersion               = '4.0.3.RELEASE'
     springSecurityVersion       = '3.2.3.RELEASE'
@@ -53,6 +55,8 @@ jar {
 mainClassName = "net.rainmore.platform.Application"
 
 dependencies {
+    compile("com.typesafe:config:${typesafeConfigVersion}")
+
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: "spring-boot-starter-tomcat"
     }
