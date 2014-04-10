@@ -10,14 +10,14 @@
     </appender>
 
     <!--<appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
-        <!--<file>/var/log/worldmanager/platform.log</file>-->
+        <!--<file>/var/log/platform.log</file>-->
         <!--<encoder>-->
             <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%file:%line] - %msg%n</pattern>-->
             <!--&lt;!&ndash;<pattern>%d %-5level %logger{35} - %msg %n</pattern>&ndash;&gt;-->
         <!--</encoder>-->
 
         <!--<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">-->
-            <!--<FileNamePattern>/var/log/worldmanager/platform.log.%i.zip</FileNamePattern>-->
+            <!--<FileNamePattern>/var/log/platform.log.%i.zip</FileNamePattern>-->
             <!--<MinIndex>1</MinIndex>-->
             <!--<MaxIndex>20</MaxIndex>-->
         <!--</rollingPolicy>-->
