@@ -5,10 +5,20 @@ spring.main.log-startup-info=false
 #options: dev, qa, production, cloud
 #spring.profiles.active=production
 
-spring.datasource.driverClassName=com.mysql.jdbc.Driver
-spring.datasource.url=jdbc:mysql://{db-host}/{db-name}
-spring.datasource.username=root
-spring.datasource.password=
+#spring.datasource.driverClassName=com.mysql.jdbc.Driver
+#spring.datasource.url=jdbc:mysql://{db-host}/{db-name}
+#spring.datasource.username=root
+#spring.datasource.password=
+
+datasource.default.driver=com.mysql.jdbc.Driver
+datasource.default.url=%s:%s://%s:%d/%s
+datasource.default.protocol=jdbc
+datasource.default.scheme=mysql
+datasource.default.host=
+datasource.default.name=
+datasource.default.user=
+datasource.default.pass=
+
 
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.hibernate.naming-strategy=net.rainmore.platform.core.helpers.jpa.JpaCustomNamingStrategy
