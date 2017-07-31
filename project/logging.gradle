@@ -1,0 +1,31 @@
+dependencies {
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
+    // https://mvnrepository.com/artifact/org.slf4j/log4j-over-slf4j
+    compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.25'
+
+
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-core
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy
+    compile group: 'org.codehaus.groovy', name: 'groovy', version: '2.4.12'
+
+/*
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api',        version: project.ext.get('apache.log4j.version')
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core',       version: project.ext.get('apache.log4j.version')
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: project.ext.get('apache.log4j.version')
+*/
+    if (getPlugins().hasPlugin('scala')) {
+        // https://mvnrepository.com/artifact/com.typesafe.scala-logging/scala-logging_2.12
+        compile group: 'com.typesafe.scala-logging', name: 'scala-logging_2.12', version: '3.7.2'
+    }
+}
+
+configurations {
+    all*.exclude group: 'org.apache.logging.log4j'
+}

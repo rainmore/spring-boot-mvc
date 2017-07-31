@@ -1,0 +1,55 @@
+// NOTE: docker plugin depends on `application` plugin
+apply plugin: 'com.bmuschko.docker-java-application'
+
+def composeImageName(String registry, String namespace, String name, String tag) {
+    return registry + '/' + namespace + '/' + name + ':' + tag
+}
+
+docker {
+    url = (isCi) ? project.teamcity['docker.engine.url'] : project.ext.get('docker.engine.url')
+
+    registryCredentials {
+        url      = project.ext.get('docker.registry')
+        username = project.ext.get('publish.credentials.username')
+        password = project.ext.get('publish.credentials.password')
+    }
+
+    javaApplication {
+        baseImage = project.ext.get('docker.baseImage')
+        ports = [8080]
+        tag = composeImageName(project.ext.get('docker.registry'), project.ext.get('docker.image.namespace'), project.ext.imageName, project.version)
+    }
+}
+
+dockerDistTar {
+    label([
+            'vendor': project.ext.get('docker.image.label.vendor')
+    ])
+}
+
+task uploadCheck {
+    group 'Publish'
+
+    doLast {
+        if (!isSnapshot) { // production release, be careful!
+            if (!isCi) {
+                throw new PublishException('Publising a release version *must* be done in CI!')
+            }
+            else if (project.teamcity['build.reftype'] == 'tags' && project.teamcity['build.refspec'] != project.version) {
+                throw new PublishException('Project version does not match the expected release version!')
+            }
+        }
+    }
+}
+
+task upload {
+    group 'Publish'
+    dependsOn uploadCheck, dockerPushImage
+}
+
+task release {
+    group 'Publish'
+    enabled = isCi
+
+    dependsOn uploadCheck, dockerPushImage
+}

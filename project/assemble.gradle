@@ -1,0 +1,30 @@
+apply plugin: 'java'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+ext.javaLintArgs = [
+    '-Xlint:all',
+    '-Xlint:-deprecation',
+    '-Xlint:-path',
+    '-Xlint:-serial'
+]
+
+ext.sharedManifest = manifest {
+    attributes \
+        'Implementation-Title':   project.name,
+            'Implementation-Version': project.version,
+            'Built-JDK':  System.getProperty('java.version'),
+            'Built-By':   System.getProperty('user.name'),
+            'Built-Date': new Date()
+}
+
+jar {
+    manifest = project.manifest { from sharedManifest }
+}
+
+tasks.withType(JavaCompile) {
+    options.incremental = true
+    options.deprecation = false
+    options.compilerArgs += project.javaLintArgs
+}

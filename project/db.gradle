@@ -1,0 +1,13 @@
+dependencies {
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+
+    // https://mvnrepository.com/artifact/org.squeryl/squeryl_2.12
+    compile group: 'org.squeryl', name: 'squeryl_2.12', version: '0.9.9'
+
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.3'
+
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.1.Final'
+}

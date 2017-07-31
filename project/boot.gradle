@@ -1,0 +1,26 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-devtools'
+}
+
+bootRun {
+    shouldRunAfter clean, processResources
+    addResources = true
+
+    if (project.ext.has('debug.transport.port')) {
+        jvmArgs += "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=" + project.ext.get('debug.transport.port')
+    }
+}
+
+// Jar should be repackaged by Spring Boot before uploading. We also do not need to preserve the original Jar.
+springBoot {
+    backupSource = false
+}
+
+bootRepackage {
+    excludeDevtools = true // exclude from repackaged archives
+}
+
+uploadArchives.dependsOn bootRepackage
