@@ -1,0 +1,20 @@
+apply plugin: 'com.github.maiflai.scalatest'
+//apply plugin: 'com.github.hauner.jarTest'
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.scalatest/scalatest_2.12
+    testCompile group: 'org.scalatest', name: 'scalatest_2.12', version: '3.0.3'
+
+    // required by the scalatest gradle plugin
+    // https://mvnrepository.com/artifact/org.pegdown/pegdown
+    compile group: 'org.pegdown', name: 'pegdown', version: '1.6.0'
+
+    // https://mvnrepository.com/artifact/io.codearte.jfairy/jfairy
+    testCompile group: 'io.codearte.jfairy', name: 'jfairy', version: '0.5.7'
+
+    // spring test framework
+    // https://mvnrepository.com/artifact/org.springframework/spring-test
+    testCompile group: 'org.springframework',          name: 'spring-test', version: '4.3.10.RELEASE'
+
+}
+

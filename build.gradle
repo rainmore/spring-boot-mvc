@@ -1,100 +1,45 @@
 buildscript {
     repositories {
-        maven {url "http://repo.spring.io/milestone"}
-        maven {url "http://repo.spring.io/libs-snapshot"}
         mavenLocal()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.BUILD-SNAPSHOT")
+        mavenCentral()
     }
 }
 
+plugins {
+    id 'org.springframework.boot'          version '1.5.6.RELEASE' apply false
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.9'         apply false
+    id 'com.github.maiflai.scalatest'      version '0.15'          apply false
+    id 'org.ajoberstar.grgit'              version '2.0.0-rc.1'    apply false
+    id 'com.github.hauner.jarTest'         version '1.0.1'         apply false
+}
 
-apply plugin: 'java'
-apply plugin: 'spring-boot'
+
+group = 'au.com.rainmore'
+version = '1.0.0'
+description = 'Spring Boot REST in scala example'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
 apply plugin: 'idea'
 apply plugin: 'application'
 
+apply from: 'project/assemble.gradle'
+apply from: 'project/scala.gradle'
+apply from: 'project/common.gradle'
+apply from: 'project/logging.gradle'
+apply from: 'project/boot.gradle'
+apply from: 'project/spring.gradle'
+//apply from: 'project/db.gradle'
+apply from: 'project/jackson.gradle'
+apply from: 'project/tests.gradle'
 
-sourceCompatibility = 1.7
-version = '1.0'
-
-repositories {
-    mavenCentral()
-    maven { url "http://repo.spring.io/libs-snapshot" }
-    maven { url "http://repo.springsource.org/milestone" }
-}
-
-
-ext {
-    springBootVersion = '0.5.0.BUILD-SNAPSHOT'
-    springVersion     = '4.0.0.RELEASE'
-    hibernateVersion  = '4.3.0.Final'
-    mysqlJdbcVersion  = '5.1.27'
-    jodaTimeVersion   = '2.3'
-    scalaVersion      = '2.10.3'
-    jacksonVersion    = '2.3.0'
-}
-
-jar {
-    baseName = 'spring-boot-mvc'
-    version =  '0.1.0'
-}
-
-mainClassName = "net.rainmore.platform.Application"
-
-dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-//    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
-//    compile("org.springframework.hateoas:spring-hateoas:0.8.0.RELEASE")
-
-    compile("org.thymeleaf:thymeleaf:2.1.2.RELEASE")
-    compile("org.thymeleaf:thymeleaf-spring4:2.1.2.RELEASE")
-    compile("org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:2.1.0.RELEASE")
-    compile("net.sourceforge.html5valdialect:html5valdialect:2.1.0")
-    compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2")
-
-    compile("javax.validation:validation-api:1.1.0.Final")
-    compile("org.hibernate:hibernate-validator:5.0.2.Final")
-    compile("javax.el:javax.el-api:2.2.4")
-    compile("org.glassfish.web:javax.el:2.2.4")
-//    compile("org.hibernate:hibernate-validator-cdi:5.0.2.Final")
-    compile("org.slf4j:slf4j-api:1.7.5")
-
-    compile("org.springframework:spring-orm:4.0.0.RELEASE")
-    compile("org.springframework.data:spring-data-jpa:1.4.2.RELEASE")
-    compile("org.hibernate:hibernate-entitymanager:$hibernateVersion")
-    compile("mysql:mysql-connector-java:$mysqlJdbcVersion")
-
-    compile("org.apache.commons:commons-lang3:3.1")
-    compile("joda-time:joda-time:$jodaTimeVersion")
-    compile("org.jadira.usertype:usertype.core:3.1.0.CR10")
-
-    compile("com.fasterxml.jackson.core:jackson-core")
-    compile("com.fasterxml.jackson.datatype:jackson-datatype-json-org:${jacksonVersion}")
-    compile("com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:${jacksonVersion}")
-    compile("com.fasterxml.jackson.datatype:jackson-datatype-joda:${jacksonVersion}")
-
-
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
-    testCompile("junit:junit:4.11") {
-        exclude group: "org.hamcrest", module: "hamcrest-core"
+// stop distZip, distTar and stop upload zip and tar
+[distZip, distTar].each { task ->
+    configurations.archives.artifacts.removeAll {
+        it.class.simpleName == "ArchivePublishArtifact" && it.archiveTask == task
     }
-    testCompile("org.hamcrest:hamcrest-all:1.3")
-    testCompile("org.mockito:mockito-all:1.9.5")
-    testCompile("com.jayway.jsonpath:json-path:0.9.1")
-    testCompile("com.jayway.jsonpath:json-path-assert:0.9.1")
-    testCompile("com.github.springtestdbunit:spring-test-dbunit:1.0.0")
-    testCompile("org.dbunit:dbunit:2.4.9")
-    testCompile("com.jolbox:bonecp:0.8.0.RELEASE")
-
-}
-
-gradle.projectsEvaluated {
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-    }
+    task.enabled = false
 }
