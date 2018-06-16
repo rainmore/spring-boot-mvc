@@ -1,22 +1,50 @@
 buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
+	ext {
+		kotlinVersion = '1.2.50'
+		springBootVersion = '2.0.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+	}
 }
 
 plugins {
-    id 'org.springframework.boot'          version '1.5.6.RELEASE' apply false
-    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.9'         apply false
-    id 'com.github.maiflai.scalatest'      version '0.15'          apply false
-    id 'org.ajoberstar.grgit'              version '2.0.0-rc.1'    apply false
-    id 'com.github.hauner.jarTest'         version '1.0.1'         apply false
+//    id 'com.ewerk.gradle.plugins.querydsl'  version '1.0.9'
+    id 'org.ajoberstar.grgit'               version '2.2.1'         apply false
+    id 'com.github.hauner.jarTest'          version '1.0.1'         apply false
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.2.50'
+	id 'org.jetbrains.kotlin.plugin.jpa'    version '1.2.50'
+	id 'org.jetbrains.kotlin.kapt'          version '1.2.50'
 }
+
+apply plugin: 'kotlin'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 
 group = 'au.com.rainmore'
-version = '1.0.0'
+version = '0.0.1-SNAPSHOT'
 description = 'Spring Boot REST in scala example'
+
+sourceCompatibility = 1.8
+compileKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ["-Xjsr305=strict"]
+		jvmTarget = "1.8"
+	}
+}
+compileTestKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ["-Xjsr305=strict"]
+		jvmTarget = "1.8"
+	}
+}
 
 repositories {
     mavenLocal()
@@ -26,15 +54,74 @@ repositories {
 apply plugin: 'idea'
 apply plugin: 'application'
 
-apply from: 'project/assemble.gradle'
-apply from: 'project/scala.gradle'
-apply from: 'project/common.gradle'
-apply from: 'project/logging.gradle'
-apply from: 'project/boot.gradle'
-apply from: 'project/spring.gradle'
-//apply from: 'project/db.gradle'
-apply from: 'project/jackson.gradle'
-apply from: 'project/tests.gradle'
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-webflux')
+	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	compile("org.jetbrains.kotlin:kotlin-reflect")
+	runtime('org.springframework.boot:spring-boot-devtools')
+
+	// DB
+	runtime group: 'mysql', name: 'mysql-connector-java', version: '5.1.46'
+	compile group: 'com.zaxxer',  name: 'HikariCP',             version: '2.7.8'
+	compile group: 'org.hibernate', name: 'hibernate-core',          version: '5.2.17.Final'
+	compile group: 'org.hibernate', name: 'hibernate-java8',          version: '5.2.17.Final'
+	compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.17.Final'
+	compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.0.9.Final'
+	compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+	compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+	// query dsl
+	kapt     group: 'com.querydsl', name: 'querydsl-apt',   version: '4.2.1', classifier: 'jpa'
+	compile  group: 'com.querydsl', name: 'querydsl-jpa',   version: '4.2.1'
+
+    // logging
+    compile group: 'org.slf4j', name: 'slf4j-api',        version: '1.7.25'
+    compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.25'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-core',    version: '1.2.3'
+
+    // common
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+
+    // JacksonJson
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.5'
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('io.projectreactor:reactor-test')
+	testCompile('org.jetbrains.kotlin:kotlin-test')
+	testCompile('org.jetbrains.kotlin:kotlin-test-junit')
+	testCompile('com.github.fakemongo:fongo:2.1.0')
+}
+
+//querydsl {
+//	library = 'com.querydsl:querydsl-apt:4.2.1'
+//	jpa = true
+//}
+
+//sourceSets.main.java.srcDirs += querydsl.querydslSourcesDir
+
+
+// apply from: 'project/assemble.gradle'
+// apply from: 'project/scala.gradle'
+// apply from: 'project/common.gradle'
+// apply from: 'project/logging.gradle'
+// apply from: 'project/boot.gradle'
+// apply from: 'project/spring.gradle'
+// //apply from: 'project/db.gradle'
+// apply from: 'project/jackson.gradle'
+// apply from: 'project/tests.gradle'
 
 // stop distZip, distTar and stop upload zip and tar
 [distZip, distTar].each { task ->
@@ -42,4 +129,12 @@ apply from: 'project/tests.gradle'
         it.class.simpleName == "ArchivePublishArtifact" && it.archiveTask == task
     }
     task.enabled = false
+}
+
+idea {
+	module {
+		def kaptMain = file('build/generated/source/kapt/main')
+		sourceDirs += kaptMain
+		generatedSourceDirs += kaptMain
+	}
 }
